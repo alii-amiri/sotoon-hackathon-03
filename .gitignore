@@ -1,0 +1,12 @@
+# Byte-compiled / temporary files:
+*.pyc
+__pycache__/
+.DS_Store
+fabricate/__init__.py
+
+# Python virtual environment folders:
+venv/
+env/
+
+
+
