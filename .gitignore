@@ -8,5 +8,7 @@ fabricate/__init__.py
 venv/
 env/
 
+# Database files:
+db.sqlite3
 
 
