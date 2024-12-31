@@ -2,14 +2,14 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 from django.db import models
 
-# Dynamic refrencing for the user model 
-User = get_user_model()
-
 class CustomUser(AbstractUser):
     ...
     def __str__(self):
         return self.username
     
+# Dynamic refrencing for the user model 
+User = get_user_model()
+
 class Group(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True, null=True)
