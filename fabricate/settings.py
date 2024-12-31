@@ -82,8 +82,16 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'PORT': '5432',
+    },
+    'mongodb': {
+        'ENGINE': 'djongo',
+        'NAME': 'phiedi',
+        'HOST': 'localhost',
+        'PORT': 27017,
     }
 }
+
+DATABASE_ROUTERS = ['fabricate.routers.TemplateRouter']
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
