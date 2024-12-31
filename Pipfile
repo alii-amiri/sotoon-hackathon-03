@@ -10,6 +10,7 @@ pymongo = "*"
 djongo = "*"
 setuptools = "*"
 pillow = "*"
+djangorestframework = "*"
 
 [dev-packages]
 
