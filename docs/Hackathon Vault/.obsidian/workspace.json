@@ -35,8 +35,7 @@
               "title": "Features Brainstorm"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -177,10 +176,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "50fea54b25acc64e",
+  "active": "f64fe36d1accceb4",
   "lastOpenFiles": [
-    "Technical Requirements.md",
     "Features Brainstorm.md",
+    "Technical Requirements.md",
     "Project Charter.md"
   ]
 }
