@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from core.utils import send_email, generate_default_context
+from core.utils import send_email
 from core.constants import DynamicVariables
 from .models import Category, EmailTemplate
 from .serializers import CategorySerializer, EmailTemplateSerializer

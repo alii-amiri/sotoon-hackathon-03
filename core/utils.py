@@ -11,9 +11,8 @@ def extract_placeholders(template_string):
 
 def replace_dynamic_data(template_string, context):
     """
-    Replace placeholders in the template string with values from contex.
+    Replace placeholders in the template string with values from the context.
     """
-    print(f"Template String: {template_string}")  # Debug the input
     placeholders = extract_placeholders(template_string)
     print(f"Extracted Placeholders: {placeholders}")  # Debug the output
     for placeholder in placeholders:
@@ -22,13 +21,6 @@ def replace_dynamic_data(template_string, context):
         value = context.get(key, '')
         template_string = template_string.replace(f"${{{placeholder}}}", value)
     return template_string
-
-def generate_default_context():
-    """
-    Dynamically generate default context based on DynamicVariables.
-    """
-    return {variable.value.lower(): f"Default {variable.name.capitalize()}" for variable in DynamicVariables}
-
 
 def send_email(subject, recipient_list, template_string, context):
     """
@@ -50,5 +42,5 @@ def send_email(subject, recipient_list, template_string, context):
         to=recipient_list,
     )
     email.content_subtype = 'html'
-    email.send()
+    # email.send()
     

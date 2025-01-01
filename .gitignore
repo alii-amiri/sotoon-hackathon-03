@@ -9,9 +9,9 @@ venv/
 env/
 
 # Database files:
-db.sqlite3
-core/migrations/
-users/migrations/
+# db.sqlite3
+# core/migrations/
+# users/migrations/
 
 get-pip.py
 
