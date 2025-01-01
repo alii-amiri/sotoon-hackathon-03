@@ -17,7 +17,6 @@ def replace_dynamic_data(template_string, context):
     print(f"Extracted Placeholders: {placeholders}")  # Debug the output
     for placeholder in placeholders:
         key = placeholder.lower()
-        print("KEY", key)
         value = context.get(key, '')
         template_string = template_string.replace(f"${{{placeholder}}}", value)
     return template_string
@@ -34,7 +33,6 @@ def send_email(subject, recipient_list, template_string, context):
 
     processed_body = replace_dynamic_data(template_string, context)
     print(f"Processed Body: {processed_body}")  # Debug processed body
-    print("TOOOOOOO", recipient_list)
     email = EmailMessage(
         subject=subject,
         body=processed_body,
@@ -42,5 +40,5 @@ def send_email(subject, recipient_list, template_string, context):
         to=recipient_list,
     )
     email.content_subtype = 'html'
-    # email.send()
+    email.send()
     

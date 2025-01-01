@@ -40,18 +40,17 @@ def send_email_view(request):
     Handles the email-sending process. Replaces placeholders and sends the email.
     """
     if request.method == 'POST':
-        data = request.POST
+        data = eval(request.body.decode())
         email_type = data.get('type', 'direct')  # direct, group, or all
         subject = data.get('subject', 'No Subject')
         body = data.get('body', '')  # Body provided as plain text
         print(f"Raw Body from Request: {body}")  # Log the body received from the request
-
         if not body:
             return JsonResponse({'error': 'Email body is required'}, status=400)
 
         # Determine recipients
         if email_type == 'direct':
-            recipients = data.getlist('recipients')
+            recipients = data.get('recipients')
         elif email_type == 'group':
             group_name = data.get('group')
             recipients = GROUPS.get(group_name, [])
@@ -61,25 +60,15 @@ def send_email_view(request):
             return JsonResponse({'error': 'Invalid email type'}, status=400)
 
         user = User.objects.get(username="admin")
-        # print(f"User: {user}")  # Debug the input
-
-        # context = user.__dict__
-        # print(f"Context1: {context}")  # Debug the input
-        # print(f"request attr: {request.POST}")  # Debug the input
         context = {
             "candidate_name": user.first_name,
             "date": timezone.now(),
             "candidate_role": user.role,
             "candidate_team": user.team,
         }
-        # context.update(request.data)
-
-        # print(f"Context2: {context}")  # Debug the input
-        print("\n", 11111111, "\n", context, "\n", request.POST, "\n")
-        print("\n", type(request.POST["recipients"]))
         try:
         # Send email using backend logic
-            send_email(request.POST["subject"], eval(request.POST["recipients"]), request.POST["body"], context=context)
+            send_email(data["subject"], data["recipients"], data["body"], context=context)
             return JsonResponse({'message': 'Email sent successfully!'})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
