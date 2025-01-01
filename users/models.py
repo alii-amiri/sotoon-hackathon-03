@@ -1,9 +1,21 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 from django.db import models
 
 class CustomUser(AbstractUser):
-    ...
+    nickname = models.CharField(max_length=150, null=True, blank=True)
+    GENDER_CHOICES = [
+    ('M', 'Male'),
+    ('F', 'Female'),
+    ('O', 'Other'),
+]
+    gender = models.CharField(choices=GENDER_CHOICES, max_length=150, null=True)
+    team = models.CharField(max_length=150, null=True)
+    birthday = models.DateField(null=True)
+    start_date = models.DateField(null=True)
+    role = models.CharField(max_length=150, null=True)
+
     def __str__(self):
         return self.username
     
