@@ -42,9 +42,10 @@ def send_email_view(request):
     if request.method == 'POST':
         data = eval(request.body.decode())
         email_type = data.get('type', 'direct')  # direct, group, or all
-        subject = data.get('subject', 'No Subject')
-        body = data.get('body', '')  # Body provided as plain text
-        print(f"Raw Body from Request: {body}")  # Log the body received from the request
+        subject = data.get('subject', '')
+        body = data.get('body', '')
+        print(f"Raw Body from Request: {body}")  # Log the original body
+
         if not body:
             return JsonResponse({'error': 'Email body is required'}, status=400)
 
@@ -60,15 +61,84 @@ def send_email_view(request):
             return JsonResponse({'error': 'Invalid email type'}, status=400)
 
         user = User.objects.get(username="admin")
-        context = {
-            "candidate_name": user.first_name,
-            "date": timezone.now(),
-            "candidate_role": user.role,
-            "candidate_team": user.team,
-        }
+
+        # context = {
+        #     "candidate_name": user.first_name,
+        #     "date": timezone.now(),
+        #     "candidate_role": user.role,
+        #     "candidate_team": user.team,
+        # }
+
+        # Tof-mal for now
+        judges_data = [
+            {
+                "email": "Javadimohammadhosein@gmail.com",
+                "candidate_name": "محمدحسین",
+                "candidate_role": "CEO",
+                "candidate_team": "Management",
+            },
+            {
+                "email": "h.abolhelm@gmail.com",
+                "candidate_name": "حمیدرضا",
+                "candidate_role": "",
+                "candidate_team": "Mena",
+            },
+            {
+                "email": "bahram.ramezani@gmail.com",
+                "candidate_name": "بهرام",
+                "candidate_role": "CPO",
+                "candidate_team": "Management",
+            },
+            {
+                "email": "montazeri.masoud@gmail.com",
+                "candidate_name": "مسعود",
+                "candidate_role": "VP",
+                "candidate_team": "Management",
+            },
+            {
+                "email": "taheri.abolfazl@gmail.com",
+                "candidate_name": "ابوالفضل",
+                "candidate_role": "A-VP",
+                "candidate_team": "Management",
+            },
+            {
+                "email": "faezeh@gmail.com",
+                "candidate_name": "فائزه",
+                "candidate_role": "Head of HR",
+                "candidate_team": "Management",
+            },
+        ]
+
+        team_data = [
+            {
+                "email": "aliamirii.am@gmail.com",
+                "candidate_name": "علی",
+                "candidate_role": "-",
+                "candidate_team": "-",
+            },
+            {
+                "email": "samakalantari@gmail.com",
+                "candidate_name": "سما",
+                "candidate_role": "-",
+                "candidate_team": "-",
+            },
+            {
+                "email": "samgholipoor00@gmail.com",
+                "candidate_name": "سام",
+                "candidate_role": "-",
+                "candidate_team": "-",
+            }
+        ]
+
         try:
+            for judge in team_data:
+                context = {
+                    "candidate_name": judge["candidate_name"],
+                }
+                send_email(data["subject"], data["recipients"], data["body"], context=context)
+                print(f"Email sent to {judge['email']} with context: {context}")
+                
         # Send email using backend logic
-            send_email(data["subject"], data["recipients"], data["body"], context=context)
             return JsonResponse({'message': 'Email sent successfully!'})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
