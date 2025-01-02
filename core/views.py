@@ -1,3 +1,4 @@
+import time
 from rest_framework import viewsets
 from django.shortcuts import render
 from rest_framework import generics
@@ -41,10 +42,12 @@ def send_email_view(request):
     """
     if request.method == 'POST':
         data = eval(request.body.decode())
+        print(f"BODYYYY: {data}")
         email_type = data.get('type', 'direct')  # direct, group, or all
         subject = data.get('subject', '')
-        body = data.get('body', '')
-        print(f"Raw Body from Request: {body}")  # Log the original body
+        body = data['content']
+        body_list = [body]
+        print(f"Raw Body from Request: {body_list}")  # Log the original body
 
         if not body:
             return JsonResponse({'error': 'Email body is required'}, status=400)
@@ -70,44 +73,44 @@ def send_email_view(request):
         # }
 
         # Tof-mal for now
-        judges_data = [
-            {
-                "email": "Javadimohammadhosein@gmail.com",
-                "candidate_name": "محمدحسین",
-                "candidate_role": "CEO",
-                "candidate_team": "Management",
-            },
-            {
-                "email": "h.abolhelm@gmail.com",
-                "candidate_name": "حمیدرضا",
-                "candidate_role": "",
-                "candidate_team": "Mena",
-            },
-            {
-                "email": "bahram.ramezani@gmail.com",
-                "candidate_name": "بهرام",
-                "candidate_role": "CPO",
-                "candidate_team": "Management",
-            },
-            {
-                "email": "montazeri.masoud@gmail.com",
-                "candidate_name": "مسعود",
-                "candidate_role": "VP",
-                "candidate_team": "Management",
-            },
-            {
-                "email": "taheri.abolfazl@gmail.com",
-                "candidate_name": "ابوالفضل",
-                "candidate_role": "A-VP",
-                "candidate_team": "Management",
-            },
-            {
-                "email": "faezeh@gmail.com",
-                "candidate_name": "فائزه",
-                "candidate_role": "Head of HR",
-                "candidate_team": "Management",
-            },
-        ]
+        # judges_data = [
+        #     {
+        #         "email": "Javadimohammadhosein@gmail.com",
+        #         "candidate_name": "محمدحسین",
+        #         "candidate_role": "CEO",
+        #         "candidate_team": "Management",
+        #     },
+        #     {
+        #         "email": "h.abolhelm@gmail.com",
+        #         "candidate_name": "حمیدرضا",
+        #         "candidate_role": "",
+        #         "candidate_team": "Mena",
+        #     },
+        #     {
+        #         "email": "bahram.ramezani@gmail.com",
+        #         "candidate_name": "بهرام",
+        #         "candidate_role": "CPO",
+        #         "candidate_team": "Management",
+        #     },
+        #     {
+        #         "email": "montazeri.masoud@gmail.com",
+        #         "candidate_name": "مسعود",
+        #         "candidate_role": "VP",
+        #         "candidate_team": "Management",
+        #     },
+        #     {
+        #         "email": "taheri.abolfazl@gmail.com",
+        #         "candidate_name": "ابوالفضل",
+        #         "candidate_role": "A-VP",
+        #         "candidate_team": "Management",
+        #     },
+        #     {
+        #         "email": "faezeh@gmail.com",
+        #         "candidate_name": "فائزه",
+        #         "candidate_role": "Head of HR",
+        #         "candidate_team": "Management",
+        #     },
+        # ]
 
         team_data = [
             {
@@ -135,8 +138,12 @@ def send_email_view(request):
                 context = {
                     "candidate_name": judge["candidate_name"],
                 }
-                send_email(data["subject"], data["recipients"], data["body"], context=context)
+                list = []
+                list.append(judge["email"])
+                send_email(data["subject"], list, data["content"], context=context)
                 print(f"Email sent to {judge['email']} with context: {context}")
+
+                time.sleep(2)
                 
         # Send email using backend logic
             return JsonResponse({'message': 'Email sent successfully!'})
