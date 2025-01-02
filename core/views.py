@@ -73,44 +73,44 @@ def send_email_view(request):
         # }
 
         # Tof-mal for now
-        # judges_data = [
-        #     {
-        #         "email": "Javadimohammadhosein@gmail.com",
-        #         "candidate_name": "محمدحسین",
-        #         "candidate_role": "CEO",
-        #         "candidate_team": "Management",
-        #     },
-        #     {
-        #         "email": "h.abolhelm@gmail.com",
-        #         "candidate_name": "حمیدرضا",
-        #         "candidate_role": "",
-        #         "candidate_team": "Mena",
-        #     },
-        #     {
-        #         "email": "bahram.ramezani@gmail.com",
-        #         "candidate_name": "بهرام",
-        #         "candidate_role": "CPO",
-        #         "candidate_team": "Management",
-        #     },
-        #     {
-        #         "email": "montazeri.masoud@gmail.com",
-        #         "candidate_name": "مسعود",
-        #         "candidate_role": "VP",
-        #         "candidate_team": "Management",
-        #     },
-        #     {
-        #         "email": "taheri.abolfazl@gmail.com",
-        #         "candidate_name": "ابوالفضل",
-        #         "candidate_role": "A-VP",
-        #         "candidate_team": "Management",
-        #     },
-        #     {
-        #         "email": "faezeh@gmail.com",
-        #         "candidate_name": "فائزه",
-        #         "candidate_role": "Head of HR",
-        #         "candidate_team": "Management",
-        #     },
-        # ]
+        judges_data = [
+            {
+                "email": "Javadimohammadhosein@gmail.com",
+                "candidate_name": "محمدحسین",
+                "candidate_role": "CEO",
+                "candidate_team": "Management",
+            },
+            {
+                "email": "h.abolhelm@gmail.com",
+                "candidate_name": "حمیدرضا",
+                "candidate_role": "",
+                "candidate_team": "Mena",
+            },
+            {
+                "email": "bahram.ramezani@gmail.com",
+                "candidate_name": "بهرام",
+                "candidate_role": "CPO",
+                "candidate_team": "Management",
+            },
+            {
+                "email": "montazeri.masoud@gmail.com",
+                "candidate_name": "مسعود",
+                "candidate_role": "VP",
+                "candidate_team": "Management",
+            },
+            {
+                "email": "taheri.abolfazl@gmail.com",
+                "candidate_name": "ابوالفضل",
+                "candidate_role": "A-VP",
+                "candidate_team": "Management",
+            },
+            {
+                "email": "faezeh@gmail.com",
+                "candidate_name": "فائزه",
+                "candidate_role": "Head of HR",
+                "candidate_team": "Management",
+            },
+        ]
 
         team_data = [
             {
@@ -134,7 +134,7 @@ def send_email_view(request):
         ]
 
         try:
-            for judge in team_data:
+            for judge in judges_data:
                 context = {
                     "candidate_name": judge["candidate_name"],
                 }
